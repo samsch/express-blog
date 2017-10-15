@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-express-app",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Basic boilerplate Express https server.",
   "main": "server/main.js",
   "scripts": {

@@ -1,4 +1,5 @@
 // The value provided in config.js would ideally pull from environment variables. (https://12factor.net/config)
+'use strict';
 module.exports = {
   // This is the session key, used to sign session tokens.
   // This needs to be a long, cryptographically secure random string.

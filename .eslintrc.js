@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
   env: {
     es6: true,
@@ -9,7 +10,7 @@ module.exports = {
       experimentalObjectRestSpread: true,
       jsx: true,
     },
-    sourceType: 'module',
+    sourceType: 'script',
   },
   plugins: ['prettier'],
   rules: {
@@ -22,5 +23,6 @@ module.exports = {
         trailingComma: 'es5',
       },
     ],
+    strict: 'error',
   },
 };

@@ -5,15 +5,20 @@
   "main": "server/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/main.js"
+    "start": "nodemon server/main.js",
+    "knex": "knex"
   },
   "author": "Samuel Scheiderich",
   "license": "0BSD",
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
+    "connect-session-knex": "^1.4.0",
     "express": "^4.15.0",
     "express-session": "^1.15.1",
+    "knex": "^0.13.0",
+    "pg": "^7.3.0",
+    "random-number-csprng": "^1.0.2",
     "scrypt-for-humans": "^2.0.5"
   },
   "devDependencies": {

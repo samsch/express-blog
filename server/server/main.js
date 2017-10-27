@@ -37,7 +37,7 @@ app.use(
 
 app.post('/api/login', function(req, res) {
   if (!req.body.email || !req.body.password) {
-    res.json({
+    res.status(400).json({
       error:
         'Missing request parameter(s). Expected json object with email and password keys.',
     });
@@ -58,7 +58,15 @@ app.post('/api/login', function(req, res) {
       }
       return scrypt
         .verifyHash(req.body.password, authors[0].password)
-        .then(function() {
+        .then(() =>
+          Promise.fromCallback(callback =>
+            req.session.regenerate(callback)
+          ).catch(err => {
+            console.log('Failed to regenerate session for login', err);
+            return err;
+          })
+        )
+        .then(() => {
           req.session.authorId = authors[0].id;
           res.json({
             message: 'Successfully logged in',
@@ -67,9 +75,71 @@ app.post('/api/login', function(req, res) {
         });
     })
     .catch(() => {
-      res.json({
-        error: 'Invalid email or password',
+      req.session.destroy(err => {
+        if (err) {
+          console.log('Failed to destroy session on bad login', err);
+        }
+        res.json({
+          error: 'Invalid email or password',
+        });
       });
+    });
+});
+
+app.post('/api/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      res.status(500).json({
+        error: 'Failed to log user out',
+      });
+    } else {
+      res.json({
+        message: 'You are now logged out',
+      });
+    }
+  });
+});
+
+app.get('/api/user', (req, res) => {
+  if (typeof req.session.authorId !== 'number') {
+    res.status(401).json({
+      error: 'Unauthenticated',
+    });
+    return;
+  }
+  Promise.try(() => {
+    const authorId = req.session.authorId;
+    return knex('author').where({ id: authorId });
+  })
+    .then(authors => {
+      if (authors.length !== 1) {
+        return Promise.fromCallback(callback =>
+          req.session.destroy(callback)
+        ).then(
+          () => {
+            throw new Error('Unauthenticated');
+          },
+          () => {
+            throw new Error('Unauthenticated');
+          }
+        );
+      }
+      const author = authors[0];
+      res.json({
+        author,
+      });
+    })
+    .catch(error => {
+      if (error.message === 'Unauthenticated') {
+        res.status(401).json({
+          error: 'User not authenticated, please login.',
+        });
+      } else {
+        res.status(500).json({
+          error:
+            'Something went wrong processing your request, please try again.',
+        });
+      }
     });
 });
 
@@ -105,7 +175,28 @@ const authenticatedMiddleware = (req, res, next) => {
 app.use('/api', blogRouters.getPublicRouter(knex));
 app.use('/api', authenticatedMiddleware, blogRouters.getPrivateRouter(knex));
 
-app.use(express.static('build'));
+app.use(express.static('public'));
+
+app.get('*', (req, res, next) => {
+  if (!req.accepts('html')) {
+    next();
+    return;
+  }
+  const options = {
+    root: __dirname + '/../public/',
+    dotfiles: 'deny',
+  };
+  res.sendFile('index.html', options, err => {
+    if (err) {
+      console.log('Failed to send index.html', err);
+      res.end();
+    }
+  });
+});
+
+app.use((req, res) => {
+  res.sendStatus(404);
+});
 
 // If securePort is defined in config, then we want to enable serving
 // over https on that port. Otherwise, the app is probably being served

@@ -77,10 +77,12 @@ typings/
 # dotenv environment variables file
 .env
 
+server/public
 server/knexfile.js
 ssl/
 
 # Common bash scripts
 run
 dev
+build
 deploy

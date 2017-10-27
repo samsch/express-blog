@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Exo+2:400,600');
 
 $borderColor: gray;
+
+:global() {
+  * {
+    font-family: 'Exo 2', sans-serif;
+  }
+}
 
 .headerBorder {
   border-bottom: solid 2px $borderColor;

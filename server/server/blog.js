@@ -1,15 +1,22 @@
 'use strict';
 const express = require('express');
 
+const pageSize = 10;
+
 module.exports.getPublicRouter = knex => {
   const router = express.Router();
 
-  router.get('/posts', (req, res) => {
-    knex('post').then(posts => {
-      res.json({
-        posts,
+  router.get(['/posts', '/posts/:number'], (req, res) => {
+    const page = req.params.number > 0 ? req.params.number - 1 : 0;
+    knex('post')
+      .orderBy('created_at', 'desc')
+      .limit(10)
+      .offset(page * pageSize)
+      .then(posts => {
+        res.json({
+          posts,
+        });
       });
-    });
   });
 
   router.get('/post/:id', (req, res) => {
@@ -78,10 +85,11 @@ module.exports.getPrivateRouter = knex => {
             }
           )
         )
-        .then(id => {
+        .returning('id')
+        .then(ids => {
           res.json({
             message: 'Added post',
-            id,
+            id: ids[0],
           });
         })
         .catch(error => {

@@ -14,7 +14,7 @@ const scrypt = require('scrypt-for-humans');
 const randomNumber = require('random-number-csprng');
 const blogRouters = require('./blog');
 
-var knex = require('knex')({
+const knex = require('knex')({
   client: 'pg',
   connection: config.pgconnection,
   version: '10',
@@ -35,7 +35,7 @@ app.use(
   })
 );
 
-app.post('/api/login', function(req, res) {
+app.post('/api/login', (req, res) => {
   if (!req.body.email || !req.body.password) {
     res.status(400).json({
       error:
@@ -43,7 +43,7 @@ app.post('/api/login', function(req, res) {
     });
     return;
   }
-  Promise.try(function() {
+  Promise.try(() => {
     return randomNumber(0, 200);
   })
     .then(random => {
@@ -213,6 +213,6 @@ if (config.securePort) {
   console.log(`Example app is server via https on port ${config.securePort}.`);
 }
 
-app.listen(config.port, function() {
+app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port}.`);
 });

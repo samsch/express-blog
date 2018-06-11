@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-express-app",
+  "name": "express-blog-server",
   "version": "1.0.0",
-  "description": "Basic boilerplate Express https server.",
+  "description": "Express Blog server.",
   "main": "server/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,9 +23,6 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "nodemon": "^1.17.5",
-    "prettier": "^1.13.5"
+    "nodemon": "^1.17.5"
   }
 }

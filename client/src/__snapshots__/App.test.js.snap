@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The App component Should render blog posts 1`] = `
+<div>
+  <h1>
+    Blog
+  </h1>
+  <div>
+    <ul>
+      <li>
+        Home
+      </li>
+      <li>
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <h2>
+            React Basic Input
+          </h2>
+          <div>
+            This is the second post now! I wrote a thing about a thing!
+          </div>
+        </div>
+        <div>
+          <h2>
+            Post about nonsense
+          </h2>
+          <div>
+            This is a short demo post about nothing.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The App component Should render initial view while waiting for data 1`] = `
+<div>
+  <h1>
+    Blog
+  </h1>
+  <div>
+    <ul>
+      <li>
+        Home
+      </li>
+      <li>
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div>
+      <div>
+        Loading posts...
+      </div>
+    </div>
+  </div>
+</div>
+`;

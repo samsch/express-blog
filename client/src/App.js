@@ -28,11 +28,21 @@ const App = props => (
             : link('Home', props.action.appAction.gotoBlog)}
         </li>
         {props.app.loggedIn ? (
-          <li>
-            {props.app.page === 'newPost'
-              ? 'New Post'
-              : link('New Post', props.action.appAction.gotoNewPost)}
-          </li>
+          <React.Fragment>
+            <li>
+              {props.app.page === 'newPost'
+                ? 'New Post'
+                : link('New Post', props.action.appAction.gotoNewPost)}
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={props.action.loginAction.logout}
+              >
+                Log out
+              </button>
+            </li>
+          </React.Fragment>
         ) : (
           <li>
             {props.app.page === 'login'
@@ -88,6 +98,9 @@ App.propTypes = {
       gotoBlog: PropTypes.func.isRequired,
       gotoNewPost: PropTypes.func.isRequired,
       gotoLogin: PropTypes.func.isRequired,
+    }).isRequired,
+    loginAction: PropTypes.shape({
+      logout: PropTypes.func.isRequired,
     }).isRequired,
     blogAction: PropTypes.object.isRequired,
   }),

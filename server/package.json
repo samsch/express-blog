@@ -12,20 +12,20 @@
   "license": "0BSD",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "body-parser": "^1.17.0",
+    "body-parser": "^1.18.3",
     "connect-session-knex": "^1.4.0",
-    "express": "^4.15.0",
+    "express": "^4.16.3",
     "express-session": "^1.15.1",
-    "knex": "^0.13.0",
-    "pg": "^7.3.0",
+    "knex": "^0.14.6",
+    "pg": "^7.4.3",
     "random-number-csprng": "^1.0.2",
     "scrypt-for-humans": "^2.0.5"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-prettier": "^2.3.1",
-    "nodemon": "^1.11.0",
-    "prettier": "^1.7.4"
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "nodemon": "^1.17.5",
+    "prettier": "^1.13.5"
   }
 }

@@ -36,19 +36,19 @@ export default appAction => {
     error: null,
   });
   loginStore.action = {
-    updateEmail(email) {
+    updateEmail (email) {
       loginStore.updateState({
         email,
         emailError: getValidationArray(emailValidators, email),
       });
     },
-    updatePassword(password) {
+    updatePassword (password) {
       loginStore.updateState({
         password,
         passwordError: getValidationArray(passwordValidators, password),
       });
     },
-    login() {
+    login () {
       loginStore.updateState({
         logging: true,
         error: null,
@@ -66,7 +66,7 @@ export default appAction => {
         },
       })
         .then(res => res.json().then(data => ({ res, data })))
-        .then(({ res, data }) => {
+        .then(({ data }) => {
           if (data.error) {
             loginStore.updateState({
               logging: false,
@@ -79,6 +79,26 @@ export default appAction => {
             });
             appAction.setLogin(true);
             appAction.gotoNewPost();
+          }
+        });
+    },
+    logout () {
+      fetch('/api/logout', {
+        method: 'post',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+        .then(res => res.json().then(data => ({ res, data })))
+        .then(({ data }) => {
+          if (data.error) {
+            loginStore.updateState({
+              error: data.error,
+            });
+          } else {
+            appAction.setLogin(false);
+            appAction.gotoBlog();
           }
         });
     },

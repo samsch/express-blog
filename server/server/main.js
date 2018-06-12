@@ -70,7 +70,11 @@ app.post('/api/login', (req, res) => {
           req.session.authorId = authors[0].id;
           res.json({
             message: 'Successfully logged in',
-            author: authors[0],
+            author: {
+              id: authors[0].id,
+              name: authors[0].name,
+              email: authors[0].email,
+            },
           });
         });
     })
@@ -109,7 +113,8 @@ app.get('/api/user', (req, res) => {
   }
   Promise.try(() => {
     const authorId = req.session.authorId;
-    return knex('author').where({ id: authorId });
+    // Only get the necessary field of the user
+    return knex('author').select('id', 'name', 'email').where({ id: authorId });
   })
     .then(authors => {
       if (authors.length !== 1) {
@@ -124,9 +129,8 @@ app.get('/api/user', (req, res) => {
           }
         );
       }
-      const author = authors[0];
       res.json({
-        author,
+        author: authors[0],
       });
     })
     .catch(error => {

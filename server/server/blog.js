@@ -40,12 +40,12 @@ module.exports.getPublicRouter = knex => {
       });
   });
 
-  router.get('/authors', (req, res) => {
-    knex('author')
+  router.get('/users', (req, res) => {
+    knex('user')
       .columns(['id', 'name'])
-      .then(authors => {
+      .then(users => {
         res.json({
-          authors,
+          users,
         });
       });
   });
@@ -74,14 +74,13 @@ module.exports.getPrivateRouter = knex => {
         error: 'New post must contain a title and body.',
       });
     } else {
-      newPost.author = req.author.id;
       knex('post')
         .insert(
           blogPostFields.reduce(
             (post, { field }) =>
               Object.assign(post, { [field]: newPost[field] }),
             {
-              author: req.author.id,
+              user_id: req.user.id,
             }
           )
         )
@@ -95,7 +94,7 @@ module.exports.getPrivateRouter = knex => {
         .catch(error => {
           console.log('Error adding post', error);
           res.status(500).json({
-            error: 'Something went wrong, please try again',
+            error: 'Something went wrong! Save a copy of your post somewhere else, refresh and try again.',
           });
         });
     }

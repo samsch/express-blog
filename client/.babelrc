@@ -7,18 +7,19 @@
           "browsers": [
             "last 2 Chrome versions",
             "last 2 Firefox versions",
-            "last 2 iOS versions",
-            "ie 11"
+            "last 2 Edge versions",
+            "last 2 iOS versions"
           ]
-        }
+        },
+        "useBuiltIns": true
       }
     ],
     "react"
   ],
-  "plugins": ["syntax-dynamic-import"],
+  "plugins": ["syntax-dynamic-import", "transform-object-rest-spread"],
   "env": {
     "test": {
-      "plugins": ["dynamic-import-node"]
+      "plugins": ["dynamic-import-node", "transform-object-rest-spread"]
     }
   }
 }

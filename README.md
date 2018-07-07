@@ -9,24 +9,13 @@ Please note that a client-side rendered blog is not particularly efficient. Gene
 
 - React
 - Express
-- Webpack
+- Parcel
 - Babel
 - Sass
 - Postcss (css-modules, autoprefixer)
 - Knex
 - Postgresql
 - Scrypt
-
-## Errata
-
-There are things some problems in this app
-
-- Missing error handling on fetch calls in the client
-  - Need to add some `.catch()` calls on the Promise chains which output notifications
-- Navigation doesn't actually navigate, but does use anchor tags
-  - Either replace current navigation with React Router (better), or make the anchors all buttons (easier)
-- Improve the styles
-  - The important part of this app is the functionality and code, but the styles could use a little TLC too
 
 ## Running the app
 

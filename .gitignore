@@ -80,6 +80,8 @@ typings/
 server/public
 server/knexfile.js
 ssl/
+package-lock.json
+client/.cache
 
 # Common bash scripts
 run

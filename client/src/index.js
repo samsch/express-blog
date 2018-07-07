@@ -1,40 +1,40 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import createAppStore from './appStore';
-import createBlogStore from './blogStore';
-import createLoginStore from './loginStore';
-import createNewPostStore from './newPostStore';
+import { BrowserRouter, Route } from 'react-router-dom';
+import './bootstrap/styles.scss';
+import styles from './index.scss';
+import Authentication from './Authentication';
+import NavBar from './NavBar';
+import Dashboard from './Dashboard';
+import Posts from './Posts';
+import NewPost from './NewPost';
 
-const appStore = createAppStore();
-const blogStore = createBlogStore();
-const loginStore = createLoginStore(appStore.action);
-const newPostStore = createNewPostStore(appStore.action);
+const rootElement = document.getElementById('root');
 
-const appRootElement = document.getElementById('app-root');
+const app = () => (
+  <div className="container">
+    <NavBar />
+    <div className={styles.separator}></div>
+    <Route
+      path="/"
+      exact
+      render={() => <Dashboard />}
+    />
+    <Route
+      path="/New-Post"
+      render={() => <NewPost />}
+    />
+    <Route
+      path="/Posts"
+      render={() => <Posts />}
+    />
+  </div>
+);
 
-const render = () => {
-  ReactDOM.render(
-    <App
-      blog={blogStore.state}
-      action={{
-        blogAction: blogStore.action,
-        appAction: appStore.action,
-        loginAction: loginStore.action,
-        newPostAction: newPostStore.action,
-      }}
-      app={appStore.state}
-      login={loginStore.state}
-      newPost={newPostStore.state}
-    />,
-    appRootElement
-  );
-};
-
-appStore.subscribe(render);
-loginStore.subscribe(render);
-blogStore.subscribe(render);
-newPostStore.subscribe(render);
-
-render();
+ReactDOM.render(
+  <BrowserRouter>
+    <Authentication app={app} />
+  </BrowserRouter>,
+  rootElement
+);

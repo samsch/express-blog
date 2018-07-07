@@ -5,7 +5,7 @@
   "main": "server/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/main.js",
+    "start": "nodemon -i public server/main.js",
     "knex": "knex"
   },
   "author": "Samuel Scheiderich",
@@ -14,6 +14,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.3",
     "connect-session-knex": "^1.4.0",
+    "errors": "^0.3.0",
     "express": "^4.16.3",
     "express-session": "^1.15.1",
     "knex": "^0.14.6",

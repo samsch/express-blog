@@ -101,5 +101,36 @@ module.exports.getPrivateRouter = knex => {
     }
   });
 
+  router.delete('/post/:id', (req, res) => {
+    const id = req.params.id;
+    return knex('post')
+      .where({ id })
+      .then(posts => {
+        if (posts.length === 1) {
+          return knex('post').delete({ id });
+        }
+        throw new Error('Not Found');
+      })
+      .then(rowsAffected => {
+        if (rowsAffected === 1) {
+          res.json({
+            message: 'Post deleted',
+          });
+        } else {
+          res.status(500).json({
+            error:
+              'Something went wrong deleting the post. Please refresh the page and try again.',
+          });
+        }
+      })
+      .catch(error => {
+        if (error.message === 'Not Found') {
+          res.status(404).json({
+            error: 'Post doesn\'t exist',
+          });
+        }
+      });
+  });
+
   return router;
 };

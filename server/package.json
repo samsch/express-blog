@@ -19,6 +19,7 @@
     "express-session": "^1.15.1",
     "knex": "^0.15.0",
     "pg": "^7.4.3",
+    "pug": "^2.0.3",
     "random-number-csprng": "^1.0.2",
     "scrypt-for-humans": "^2.0.5"
   },

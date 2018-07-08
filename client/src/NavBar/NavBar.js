@@ -32,7 +32,7 @@ LsNavLink.propTypes = {
 
 const NavBar = () => (
   <nav className="navbar navbar-dark bg-primary navbar-expand-md">
-    <Link className="navbar-brand" to="/">Express Blog</Link>
+    <a className="navbar-brand" href="/">Express Blog</a>
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <LsNavLink to="/" exact>Home</LsNavLink>

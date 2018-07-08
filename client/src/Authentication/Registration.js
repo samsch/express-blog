@@ -63,7 +63,6 @@ class Registration extends React.Component {
         className={classNames({'needs-validation': true, 'was-validated': this.state.triedToSubmit})}
         noValidate
       >
-        <h2>Registration</h2>
         <div className="form-group row">
           <label htmlFor="login-name">Name</label>
           <input

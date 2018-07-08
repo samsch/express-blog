@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Express Blog
+    block scripts
+    //-   script(src='/jquery.js')
+    block styles
+      link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css", integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4", crossorigin="anonymous")
+  body
+    .container
+      nav.navbar.navbar-dark.bg-dark.navbar-expand
+        a(href="/").navbar-brand Express Blog
+        .collapse.navbar-collapse
+          ul.navbar-nav
+            each link in navLinks
+              li(class={'nav-item': true, active: link.active})
+                a.nav-link(href=link.path)=link.label
+      block content
+    footer
+      .row.justify-content-center.mt-3
+        div
+          i Express Blog
+          |
+          | © Samuel Scheiderich

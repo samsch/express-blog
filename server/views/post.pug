@@ -1,0 +1,12 @@
+extends partial/html.pug
+
+block content
+  .row.mt-3.justify-content-center
+    .col-md-8
+      a(href="/") Back to Posts
+      .card.mt-3
+        if post.imgUrl
+          img(src=post.imgUrl, alt=post.imgAlt)
+        .card-body
+          h4.card-title= post.title
+          p.card-text= post.post

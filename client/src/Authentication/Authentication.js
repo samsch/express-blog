@@ -3,7 +3,8 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import { get, post } from '../shared/http';
 import Registration from './Registration';
-import DropdownOpener from './DropdownOpener';
+import Toggle from './Toggle';
+import Button from '../component/Button';
 import Loading from '../component/Loading';
 
 class Authentication extends React.Component {
@@ -83,19 +84,42 @@ class Authentication extends React.Component {
     }
     return (
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <h1>Welcome, please login</h1>
-            <LoginForm onSubmit={this.onSubmit} loading={this.state.loggingIn} error={this.state.error} />
+        <nav className="navbar navbar-dark bg-dark navbar-expand">
+          <a href="/" className="navbar-brand">Express Blog</a>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link" href="/">Home</a>
+              </li>
+              <li className="nav-item active">
+                <a className="nav-link" href="/admin">Admin Login</a>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <DropdownOpener>
-              <Registration />
-            </DropdownOpener>
-          </div>
-        </div>
+        </nav>
+        <Toggle>
+          {(isRegistrationView, { toggle }) => (
+            <div className="row justify-content-center">
+              {isRegistrationView ? (
+                <div className="col-md-8">
+                  <div className="row justify-content-between align-items-center">
+                    <h1 className="col-auto mb-4 mt-4">Register</h1>
+                    <Button className="col-auto btn-link" onClick={toggle}>Back to Login</Button>
+                  </div>
+                  <Registration />
+                </div>
+              ) : (
+                <div className="col-md-8">
+                  <div className="row justify-content-between align-items-center">
+                    <h1 className="col-auto mb-4 mt-4">Welcome, please login</h1>
+                    <Button className="col-auto btn-link" onClick={toggle}>Register</Button>
+                  </div>
+                  <LoginForm onSubmit={this.onSubmit} loading={this.state.loggingIn} error={this.state.error} />
+                </div>
+              )}
+            </div>
+          )}
+        </Toggle>
       </div>
     );
   }

@@ -23,6 +23,8 @@ const knex = require('knex')({
 
 const store = new KnexSessionStore({ knex });
 
+app.set('view engine', 'pug');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
@@ -35,6 +37,54 @@ app.use(
     store,
   })
 );
+
+app.get(['/','/page/:number'], (req, res) => {
+  const pageSize = 10;
+  const page = req.params.number > 0 ? req.params.number - 1 : 0;
+  knex('post')
+    .orderBy('created_at', 'desc')
+    .limit(10)
+    .offset(page * pageSize)
+    .then(posts => {
+      res.render('blog', {
+        navLinks: [{
+          active: true,
+          path: '/',
+          label: 'Home',
+        }, {
+          active: false,
+          path: '/admin',
+          label: 'Admin Login',
+        }],
+        posts,
+      });
+    });
+});
+
+app.get('/post/:id', (req, res, next) => {
+  knex('post')
+    .where({ id: req.params.id })
+    .then(posts => {
+      if (posts.length === 0) {
+        next();
+      } else if (posts.length !== 1) {
+        next(new Error('More than one post returned for an ID.'));
+      } else {
+        res.render('post', {
+          navLinks: [{
+            active: false,
+            path: '/',
+            label: 'Home',
+          }, {
+            active: false,
+            path: '/admin',
+            label: 'Admin Login',
+          }],
+          post: posts[0],
+        });
+      }
+    });
+});
 
 app.use(loginRouter(knex));
 app.use(registrationRouter(knex));
@@ -87,9 +137,9 @@ const authenticatedMiddleware = (req, res, next) => {
 app.use('/api', blogRouters.getPublicRouter(knex));
 app.use('/api', authenticatedMiddleware, blogRouters.getPrivateRouter(knex));
 
-app.use(express.static('public'));
+app.use('/admin', express.static('public'));
 
-app.get('*', (req, res, next) => {
+app.get('/admin', (req, res, next) => {
   if (!req.accepts('html')) {
     next();
     return;

@@ -4,8 +4,8 @@
   "description": "Express Blog Frontend",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel watch -d ../server/public src/index.html --https --cert ../ssl/cert.pem --key ../ssl/key.pem --hmr-port 1235",
-    "build": "parcel build -d ../server/public src/index.html",
+    "start": "parcel watch -d ../server/public --public-url /admin src/index.html --https --cert ../ssl/cert.pem --key ../ssl/key.pem --hmr-port 1235",
+    "build": "parcel build -d ../server/public --public-url /admin src/index.html",
     "test": "jest"
   },
   "author": "Samuel Scheiderich",

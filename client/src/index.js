@@ -38,7 +38,7 @@ const app = () => (
 );
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/admin">
     <Authentication app={app} />
   </BrowserRouter>,
   rootElement

@@ -11,9 +11,12 @@ class Loading extends React.Component {
     };
   }
   componentDidMount () {
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.setState({ showing: true });
     }, 250);
+  }
+  componentWillUnmount () {
+    clearTimeout(this.timeout);
   }
   render () {
     if (!this.state.showing) {

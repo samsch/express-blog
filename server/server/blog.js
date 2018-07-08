@@ -30,7 +30,7 @@ module.exports.getPublicRouter = knex => {
         } else if (posts.length !== 1) {
           res.status(500).json({
             error:
-              'Something went wrong retrieving this post, please try again',
+              'Something went wrong retrieving this post, please refresh the page and try again',
           });
         } else {
           res.json({

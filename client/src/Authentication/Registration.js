@@ -34,9 +34,10 @@ class Registration extends React.Component {
             } else if (res.ok && data.user) {
               this.setState({
                 submitting: false,
+              }, () => {
+                // eslint-disable-next-line no-self-assign
+                window.location.href = window.location.href;
               });
-              // eslint-disable-next-line no-self-assign
-              window.location.href = window.location.href;
             } else {
               this.setState({
                 submitting: false,

@@ -4,6 +4,7 @@ import LoginForm from './LoginForm';
 import { get, post } from '../shared/http';
 import Registration from './Registration';
 import DropdownOpener from './DropdownOpener';
+import Loading from '../component/Loading';
 
 class Authentication extends React.Component {
   constructor (props) {
@@ -75,7 +76,7 @@ class Authentication extends React.Component {
           </div>
         );
       }
-      return null;
+      return <Loading size={3} />;
     }
     if (this.state.authenticated) {
       return this.props.app(this.state.authenticated);

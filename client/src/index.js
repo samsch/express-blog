@@ -8,6 +8,7 @@ import Authentication from './Authentication';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
 import Posts from './Posts';
+import Post from './Post';
 import NewPost from './NewPost';
 
 const rootElement = document.getElementById('root');
@@ -19,15 +20,19 @@ const app = () => (
     <Route
       path="/"
       exact
-      render={() => <Dashboard />}
+      component={Dashboard}
     />
     <Route
       path="/New-Post"
-      render={() => <NewPost />}
+      component={NewPost}
     />
     <Route
       path="/Posts"
-      render={() => <Posts />}
+      component={Posts}
+    />
+    <Route
+      path="/Post/:id"
+      component={Post}
     />
   </div>
 );

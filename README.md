@@ -69,6 +69,8 @@ Node LTS or newer, equivalent npm. Empty Postgres database with user/password se
 
 To build the client, start a terminal in the `client/` folder, run `npm install` and `npm run build`. This will output the client build to the `server/public/` folder.
 
+You can develop against the client with `npm start`, which will watch for files changes and do HMR (you will need to explicitly allow a self-signed cert at the HRM websocket domain in the browser before HMR and automatic page reload will work. The port is set to 1235, so visit `https://localhost:1235` and allow the cert as an exception).
+
 ## Setting up the app
 
 A config.json or config.js file at the project root is needed. The `config.json.example` file can be copied to `config.js` and modified. It contains the descriptions of the required variables, as well as helpful info for generating or getting the values. Alternatively, you can make or generate a `config.json` file based on this template.

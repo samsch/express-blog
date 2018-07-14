@@ -9,6 +9,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const Promise = require('bluebird');
 const session = require('express-session');
+const csrf = require('csurf');
 const KnexSessionStore = require('connect-session-knex')(session);
 const loginRouter = require('./login');
 const registrationRouter = require('./register');
@@ -86,6 +87,40 @@ app.get('/post/:id', (req, res, next) => {
     });
 });
 
+app.use('/admin', express.static('public'));
+
+app.get('/admin*', (req, res, next) => {
+  if (!req.accepts('html')) {
+    next();
+    return;
+  }
+  const options = {
+    root: __dirname + '/../public/',
+    dotfiles: 'deny',
+  };
+  res.sendFile('index.html', options, err => {
+    if (err) {
+      console.log('Failed to send index.html', err);
+      res.end();
+    }
+  });
+});
+app.use(csrf({
+  value: req => req.get('csrf-token'),
+}));
+app.use(function (err, req, res, next) {
+  if (err.code !== 'EBADCSRFTOKEN') {
+    return next(err);
+  }
+  res.set('csrf-token', req.csrfToken());
+  res.status(403);
+  res.send({ error: 'Looks like your sessions may have expired. Please refresh and try again.' });
+});
+app.use(function (req, res, next) {
+  res.set('csrf-token', req.csrfToken());
+  next();
+});
+
 app.use(loginRouter(knex));
 app.use(registrationRouter(knex));
 
@@ -137,27 +172,20 @@ const authenticatedMiddleware = (req, res, next) => {
 app.use('/api', blogRouters.getPublicRouter(knex));
 app.use('/api', authenticatedMiddleware, blogRouters.getPrivateRouter(knex));
 
-app.use('/admin', express.static('public'));
-
-app.get('/admin*', (req, res, next) => {
-  if (!req.accepts('html')) {
-    next();
-    return;
-  }
-  const options = {
-    root: __dirname + '/../public/',
-    dotfiles: 'deny',
-  };
-  res.sendFile('index.html', options, err => {
-    if (err) {
-      console.log('Failed to send index.html', err);
-      res.end();
-    }
-  });
-});
-
 app.use((req, res) => {
   res.sendStatus(404);
+});
+
+app.use((err, req, res, next) => {
+  res.status(500);
+  if (req.accepts('html')) {
+    res.send('Something went wrong. Please refresh and try again.');
+    return;
+  }
+  res.json({
+    error:
+      'Something went wrong processing your request, please try again.',
+  });
 });
 
 // If securePort is defined in config, then we want to enable serving

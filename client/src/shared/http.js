@@ -1,4 +1,10 @@
+let csrfSecret = '';
+
 function handleResponse (res) {
+  const token = res.headers.get('csrf-token');
+  if (token) {
+    csrfSecret = token;
+  }
   if (res.headers.get('content-type').includes('application/json')) {
     return res.json().then(data => ({ res, data }));
   } else {
@@ -12,6 +18,7 @@ function getOptions (options = {}) {
     ...options,
     headers: {
       'Accept': 'application/json',
+      'csrf-token': csrfSecret,
       ...options.headers,
     },
   };

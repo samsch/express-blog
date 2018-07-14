@@ -24,6 +24,7 @@ These are some of the thing specifically done "right", which are fine to use in 
 - Uses type checked HTML generation
   - Neither Pug or React blindly concatenate strings to create HTML, so it's difficult or impossible to write invalid markup.
 - Has authentication and authorization checks for routes where needed
+- Uses CSRF protection for requests which might update the server
 
 There are some design choices in Express Blog which are not inherently good or bad, but have trade-offs which made sense for this app.
 

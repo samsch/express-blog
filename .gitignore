@@ -78,13 +78,9 @@ typings/
 .env
 
 server/public
-server/knexfile.js
+tls/
 ssl/
 package-lock.json
 client/.cache
-
-# Common bash scripts
-run
-dev
-build
-deploy
+config.json
+config.js

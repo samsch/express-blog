@@ -46,8 +46,6 @@ There are a couple problems with Express Blog which should be avoided in any "re
   - The current standard is to email a link with a secure token to the user's known email address. When they click the link it allows them to set a new password. This isn't truly ideal, as email accounts can be hijacked. Better possible solutions include security questions based on the user's usage patterns.
 - The server file organization isn't perfect
   - Express Blog is tiny, so a simple flat organization of the backend works ok, but most apps should be better organized.
-- The Node server itself does not have a production configuration
-  - The `npm start` command should start the server in production mode, not development mode with Nodemon.
 - More testing!
   - Express Blog has almost no tests. While not strictly necessary, it's a good idea to write tests for non-trivial functionality. Where possible, even simple snapshot tests of rendering can help catch unexpected changes.
 
@@ -63,38 +61,39 @@ There are a couple problems with Express Blog which should be avoided in any "re
 - Postgresql
 - Scrypt
 
-## Running the app
+## Build and run requirements
 
-(Sorry, no instructions for Windows users. You can probably use WSL or git bash, but that's not tested.)
+Node LTS or newer, equivalent npm. Empty Postgres database with user/password setup.
 
-A few environment variables are needed. For development, I put these in a `.env` file in the project root. The `example.env` file can be copied to `.env` and modified. It contains the descriptions of the required vars, as well as helpful info for generating or getting the values. **You need these vars in your path to run the following commands.** You can add them by running `source ./.env` in a bash shell.
+## Building the client
 
 To build the client, start a terminal in the `client/` folder, run `npm install` and `npm run build`. This will output the client build to the `server/public/` folder.
 
+## Setting up the app
+
+A config.json or config.js file at the project root is needed. The `config.json.example` file can be copied to `config.js` and modified. It contains the descriptions of the required variables, as well as helpful info for generating or getting the values. Alternatively, you can make or generate a `config.json` file based on this template.
+```json
+{
+  "secret": "<generated secret string>",
+  "port": "3000",
+  "securePort": "3001",
+  "tlsKey": "../tls/key.pem",
+  "tlsCert": "../tls/cert.pem",
+  "pgconnection": {
+    "database": "<blog database name>",
+    "user": "<db username>",
+    "password": "<db user password>"
+  }
+}
+```
+In linux, you can generate the `secret` string (used as the session signing key) with `cat /dev/urandom | env LC_CTYPE=C tr -dc _A-Za-z0-9 | head -c${1:-64}`.
+
+Install the project dependencies with from a terminal in `server/` by running `npm install`.
+
+You can initialize the Database with `npm db:migrate`. If you needed to destroy a database, you can use `npm db:rollback` (This will remove all tables and data. So... be careful.)
+
+## Running the server
+
 To run the server, change directories to `server/` (relative to the project root), and run `npm install` and `npm start`.
 
-To make this easier for myself, I usually create some bash scripts like so:
-
-`run`, which starts the blog api server.
-```bash
-#!/bin/bash
-source ./.env
-cd server
-npm start
-```
-
-`build`, which builds the front end.
-```bash
-#!/bin/bash
-source ./.env
-cd client
-npm run build
-```
-
-`dev`, which runs webpack-dev-server for the front end, allowing build-on-save. It's setup to proxy to the api server.
-```bash
-#!/bin/bash
-source ./.env
-cd client
-npm start
-```
+For development, run `npm run dev`. This will use nodemon to restart the server when files change.

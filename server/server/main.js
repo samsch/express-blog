@@ -139,7 +139,7 @@ app.use('/api', authenticatedMiddleware, blogRouters.getPrivateRouter(knex));
 
 app.use('/admin', express.static('public'));
 
-app.get('/admin', (req, res, next) => {
+app.get('/admin*', (req, res, next) => {
   if (!req.accepts('html')) {
     next();
     return;

@@ -138,8 +138,8 @@ class NewPost extends React.Component {
       <form onSubmit={this.onSubmit} className="container">
         {formFieldRow('Title', 'new-post-title', this.state.title, this.onTitleChange)}
         {formFieldRow('Post', 'new-post-content', this.state.content, this.onContentChange, true)}
-        {formFieldRow('Image URL', 'new-post-img-url', this.state.imgUrl, this.onImgUrlChange)}
-        {formFieldRow('Image Alt Text', 'new-post-img-alt', this.state.imgAlt, this.onImgAltChange)}
+        {/* {formFieldRow('Image URL', 'new-post-img-url', this.state.imgUrl, this.onImgUrlChange)}
+        {formFieldRow('Image Alt Text', 'new-post-img-alt', this.state.imgAlt, this.onImgAltChange)} */}
         <div className="row justify-content-end">
           <div className="col-md-auto">
             <Button

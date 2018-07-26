@@ -7,7 +7,7 @@ The public facing UI is rendered on the server with Pug. It shows a list of blog
 
 There is a link to the admin backend, which is a React-based Single Page Application (client-side routing). While missing a couple necessary "real life" features such as email validation and password reset (mostly to keep from needing any external services for this project's functionality), the login and registration are generally secure.
 
-> You can identify other email addresses which are attached to account. This would be easily solvable with email validation. Also, the registration is open to any user, and posts they make would be displayed. Given a specific desired usage, the fixes for both of these would be fairly trivial.
+> You can identify other email addresses which are used for accounts via the registration process. This would be easily solvable with email validation. Also, the registration is open to any user, and posts they make would be displayed. Given a specific desired usage, the fixes for both of these would be fairly trivial.
 
 It should be noted that there is no technical reason the backend needs to be an SPA. This project is a showcase of how to do certain things "the right way", and one of those things is using an SPA with an API backend.
 
@@ -26,7 +26,7 @@ These are some of the thing specifically done "right", which are fine to use in 
 - Has authentication and authorization checks for routes where needed
 - Uses CSRF protection for requests which might update the server
 
-There are some design choices in Express Blog which are not inherently good or bad, but have trade-offs which made sense for this app.
+There are some design choices in Express Blog which are not inherently good or bad, but have trade-offs which made sense for this project.
 
 - The admin SPA code is separated from the backend
   - This allows for easy organization of the separate tooling and configuration needed for each.

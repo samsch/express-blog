@@ -5,7 +5,7 @@ I build this as an example of a reasonable node web application with authenticat
 
 The public facing UI is rendered on the server with Pug. It shows a list of blog posts, with links to the individual post pages.
 
-There is a link to the admin backend, which is a React-based Single Page Application (client-side routing). While missing a couple necessary "real life" features such as email validation and password reset (mostly to keep from needed any external services for this project's functionality), the login and registration are generally secure.
+There is a link to the admin backend, which is a React-based Single Page Application (client-side routing). While missing a couple necessary "real life" features such as email validation and password reset (mostly to keep from needing any external services for this project's functionality), the login and registration are generally secure.
 
 > You can identify other email addresses which are attached to account. This would be easily solvable with email validation. Also, the registration is open to any user, and posts they make would be displayed. Given a specific desired usage, the fixes for both of these would be fairly trivial.
 

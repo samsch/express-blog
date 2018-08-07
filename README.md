@@ -47,6 +47,8 @@ There are a couple problems with Express Blog which should be avoided in any "re
   - The current standard is to email a link with a secure token to the user's known email address. When they click the link it allows them to set a new password. This isn't truly ideal, as email accounts can be hijacked. Better possible solutions include security questions based on the user's usage patterns.
 - The server file organization isn't perfect
   - Express Blog is tiny, so a simple flat organization of the backend works ok, but most apps should be better organized.
+- Wrong string data type for Postgres
+  - When working with Knex + Postgres, you should always use the `text` type instead of `string`. (Unlike MySQL, Postgres `text` fields are not slower, and `text` fields aren't arbitrarily limited to 255 characters.) (Fixing this is planned here.)
 - More testing!
   - Express Blog has almost no tests. While not strictly necessary, it's a good idea to write tests for non-trivial functionality. Where possible, even simple snapshot tests of rendering can help catch unexpected changes.
 

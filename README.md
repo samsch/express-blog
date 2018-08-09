@@ -15,9 +15,10 @@ It should be noted that there is no technical reason the backend needs to be an 
 
 These are some of the thing specifically done "right", which are fine to use in other applications. Express Blog is also licensed for use under the Free Public License 1.0.0 (0BSD), so feel free to use any or all of the code in other projects.
 
-- Uses a relational DB
+- Uses a relational DB (Postgres)
 - Uses tools which eliminate the possibility of injection attacks in SQL, JavaScript, and HTML
   - (Knex for building DB queries, and React and Pug which both escape by default for their context)
+- Uses Postgres `text` fields for strings
 - Uses the best password hashing option
   - Scrypt, via scrypt-for-humans (The next best options are Bcrypt and Argon2. The former is technically strictly worse, though generally good enough. Argon2 is technically better than Scrypt, but not as well tested and not yet supported well for general usage in Node.)
 - Uses Eslint
@@ -46,9 +47,7 @@ There are a couple problems with Express Blog which should be avoided in any "re
 - There should be a secure password reset
   - The current standard is to email a link with a secure token to the user's known email address. When they click the link it allows them to set a new password. This isn't truly ideal, as email accounts can be hijacked. Better possible solutions include security questions based on the user's usage patterns.
 - The server file organization isn't perfect
-  - Express Blog is tiny, so a simple flat organization of the backend works ok, but most apps should be better organized.
-- Wrong string data type for Postgres
-  - When working with Knex + Postgres, you should always use the `text` type instead of `string`. (Unlike MySQL, Postgres `text` fields are not slower, and `text` fields aren't arbitrarily limited to 255 characters.) (Fixing this is planned here.)
+  - Express Blog is tiny, so a simple flat organization of the backend works ok, but most apps should be better organized.this is planned here.)
 - More testing!
   - Express Blog has almost no tests. While not strictly necessary, it's a good idea to write tests for non-trivial functionality. Where possible, even simple snapshot tests of rendering can help catch unexpected changes.
 

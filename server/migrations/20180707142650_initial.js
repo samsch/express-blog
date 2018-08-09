@@ -13,14 +13,14 @@ exports.up = async function (knex) {
   }
   await knex.schema.createTable('user', table => {
     table.increments('id').primary();
-    table.string('name');
-    table.string('email');
-    table.string('password');
+    table.text('name');
+    table.text('email');
+    table.text('password');
     table.timestamps(true, true);
   });
   await knex.schema.createTable('post', table => {
     table.increments('id').primary();
-    table.string('title');
+    table.text('title');
     table
       .integer('user_id')
       .unsigned()

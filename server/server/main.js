@@ -176,6 +176,7 @@ app.use((req, res) => {
   res.sendStatus(404);
 });
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(500);
   if (req.accepts('html')) {

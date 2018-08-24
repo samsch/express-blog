@@ -30,9 +30,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
   session({
+    cookie: {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+    },
     secret: config.secret,
-    httpOnly: true,
-    secure: true,
     resave: false,
     saveUninitialized: false,
     store,

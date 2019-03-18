@@ -9,13 +9,13 @@ There is a link to the admin backend, which is a React-based Single Page Applica
 
 > You can identify other email addresses which are used for accounts via the registration process. This would be easily solvable with email validation. Also, the registration is open to any user, and posts they make would be displayed. Given a specific desired usage, the fixes for both of these would be fairly trivial.
 
-It should be noted that there is no technical reason the backend needs to be an SPA. This project is a showcase of how to do certain things "the right way", and one of those things is using an SPA with an API backend.
+It should be noted that there is no technical reason the admin interface needs to be an SPA. This project is a showcase of how to do certain things "the right way", and one of those things is using an SPA with an API backend. In the real world, the admin interface should probably not be an SPA.
 
 ## Things to take away from Express Blog
 
 These are some of the thing specifically done "right", which are fine to use in other applications. Express Blog is also licensed for use under the Free Public License 1.0.0 (0BSD), so feel free to use any or all of the code in other projects.
 
-- Uses a relational DB (Postgres)
+- Uses a general purpose (relational) DB (Postgres)
 - Uses tools which eliminate the possibility of injection attacks in SQL, JavaScript, and HTML
   - (Knex for building DB queries, and React and Pug which both escape by default for their context)
 - Uses Postgres `text` fields for strings
@@ -61,7 +61,7 @@ There are a couple problems with Express Blog which should be avoided in any "re
 - Postcss (css-modules, autoprefixer)
 - Knex
 - Postgresql
-- Scrypt
+- Scrypt (scrypt-for-humans)
 
 ## Build and run requirements
 

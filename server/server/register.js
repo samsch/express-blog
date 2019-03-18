@@ -88,10 +88,11 @@ module.exports = knex => {
       })
       .then(final => {
         if (final === 'destroySession') {
-          req.session.destroy(err => {
+          req.session.regenerate(err => {
             if (err) {
               console.log('Failed to destroy session on bad registration', err);
             }
+            res.set('csrf-token', req.csrfToken());
           });
         }
       });

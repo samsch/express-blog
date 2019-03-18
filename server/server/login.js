@@ -1,7 +1,6 @@
 'use strict';
 const { Router } = require('express');
 const scrypt = require('scrypt-for-humans');
-const randomNumber = require('random-number-csprng');
 const Promise = require('bluebird');
 
 module.exports = knex => {
@@ -16,15 +15,9 @@ module.exports = knex => {
       return;
     }
     Promise.try(() => {
-      return randomNumber(0, 200);
+      return knex('user').where({ email: req.body.email });
     })
-      .then(random => {
-        return Promise.all([
-          Promise.delay(random),
-          knex('user').where({ email: req.body.email }),
-        ]);
-      })
-      .then(([, users]) => {
+      .then(users => {
         if (users.length !== 1) {
           throw new Error('invalid');
         }
@@ -51,10 +44,11 @@ module.exports = knex => {
           });
       })
       .catch(() => {
-        req.session.destroy(err => {
+        req.session.regenerate(err => {
           if (err) {
             console.log('Failed to destroy session on bad login', err);
           }
+          res.set('csrf-token', req.csrfToken());
           res.json({
             error: 'Email and Password combination is incorrect. Check what you entered and try again.',
           });

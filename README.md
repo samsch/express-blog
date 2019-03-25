@@ -1,5 +1,5 @@
 # Express Blog!
-A scratch-build blog CRM.
+A scratch-build blog CMS.
 
 I build this as an example of a reasonable node web application with authentication and CRUD functionality. It is also a code portfolio piece, since a lot of what I've written is hidden in proprietary apps.
 

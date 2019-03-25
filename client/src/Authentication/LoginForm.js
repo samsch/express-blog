@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
           </div>
         </div>
         <If true={error}>
-          <div className="row">
+          <div className="row mt-3">
             <p className="col alert alert-danger">{error}</p>
           </div>
         </If>

@@ -32,6 +32,7 @@ module.exports = knex => {
             })
           )
           .then(() => {
+            res.set('csrf-token', req.csrfToken());
             req.session.userId = users[0].id;
             res.json({
               message: 'Successfully logged in',

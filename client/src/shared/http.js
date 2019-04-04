@@ -5,7 +5,8 @@ function handleResponse (res) {
   if (token) {
     csrfSecret = token;
   }
-  if (res.headers.get('content-type').includes('application/json')) {
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
     return res.json().then(data => ({ res, data }));
   } else {
     return res.text().then(data => ({ res, data }));

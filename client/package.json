@@ -4,7 +4,7 @@
   "description": "Express Blog Frontend",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel watch -d ../server/public --public-url /admin src/index.html --https --cert ../ssl/cert.pem --key ../ssl/key.pem --hmr-port 1235",
+    "start": "parcel watch -d ../server/public --public-url /admin src/index.html --https --cert ../tls/cert.pem --key ../tls/key.pem --hmr-port 1235",
     "build": "parcel build -d ../server/public --public-url /admin src/index.html",
     "test": "jest"
   },

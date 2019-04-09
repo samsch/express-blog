@@ -94,7 +94,7 @@ In linux, you can generate the `secret` string (used as the session signing key)
 
 Install the project dependencies with from a terminal in `server/` by running `npm install`.
 
-You can initialize the Database with `npm db:migrate`. If you needed to destroy a database, you can use `npm db:rollback` (This will remove all tables and data. So... be careful.)
+You can initialize the Database with `npm run db:migrate`. If you needed to destroy a database, you can use `npm run db:rollback` (This will remove all tables and data. So... be careful.)
 
 ## Running the server
 
